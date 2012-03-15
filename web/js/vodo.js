@@ -76,39 +76,38 @@ var vodo = (function($, self){
     }
   };
   
-  // Hook into jQuery
-  $.fn.extend(
-	{
-		vodoFeed : function(o)
-		{
-			return this.each(
-				function()
-				{
-					// get selected element
-					var container = jQuery(this);
-					
-					// Handle click on info link
-          container.on("click", "a.info", function(event){
-          	$(this).parents('.item').toggleClass('flip');
-          });
-          
-          // Load feed into given element
-          self.loadFeed({
-					  url: o.url,
-					  container: container,
-					  placeholder: o.placeholder,
-					  callback: o.callback
-					});
-					
-					// Do not break jQuery chain
-					return container;
-				}
-			);
-		}
-	});
-  
-  return self;
-  
+// Hook into jQuery
+$.fn.extend({
+  vodoFeed: function(o)
+  {
+    return this.each(
+      function() {
+        // get selected element
+        var container = jQuery(this);
+
+        // Handle click on info link
+        container.on("click", "a.info",
+        function(event) {
+          $(this).parents('.item').toggleClass('flip');
+        });
+
+        // Load feed into given element
+        self.loadFeed({
+          url: o.url,
+          container: container,
+          placeholder: o.placeholder,
+          callback: o.callback
+        });
+
+        // Do not break jQuery chain
+        return container;
+      }
+    );
+  }
+});
+
+return self;
+
 })(jQuery, vodo || {});
 
 /* Vodo specific template filters */
