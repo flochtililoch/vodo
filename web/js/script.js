@@ -14,10 +14,13 @@ $(function(){
     }
   }
   
-  // Process feed
-  feedContainer.vodoFeed({
-    url: 'http://pipes.yahoo.com/pipes/pipe.run?_id=f42c711ab0e64056fd200b38ad98e102&_render=json&callback=myfunction',
-    callback: callback,
-    placeholder: $('.placeholder').remove().removeClass('placeholder')
+  // Retrieve item placeholder, then process feed
+  $.get('tpl/item.html.tpl', function(placeholder){
+    feedContainer.vodoFeed({
+      url: 'http://pipes.yahoo.com/pipes/pipe.run?_id=f42c711ab0e64056fd200b38ad98e102&_render=json&callback=myfunction',
+      callback: callback,
+      placeholder: $(placeholder)
+    });
   });
+  
 });

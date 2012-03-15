@@ -57,23 +57,22 @@ var vodo = (function($, self){
           }
         }, 150);
       });
-    }
+    };
     
+    // MSIE edge case
+    // http://stackoverflow.com/questions/5087549/access-denied-to-jquery-script-on-ie
+    // http://www.cypressnorth.com/blog/programming/cross-domain-ajax-request-with-json-response-for-iefirefoxchrome-safari-jquery/ 
     if ($.browser.msie && window.XDomainRequest) {
       var xdr = new XDomainRequest();
       xdr.open("get", o.url);
       xdr.onload = function()
       {
+        // response need to be parsed
         processFeed($.parseJSON(xdr.responseText));
       };
       xdr.send();
-    } else {    
-      $.ajax({
-        url: o.url,
-        cache: false,
-        dataType: "json",
-        success: processFeed
-      });
+    } else {
+      $.getJSON(o.url, processFeed);
     }
   };
   

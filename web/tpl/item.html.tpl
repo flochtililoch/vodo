@@ -1,6 +1,6 @@
-<li attr="id" _id="item-${id}" class="item placeholder">
+<li attr="id" _id="item-${id}" class="item">
   <div class="front">
-    <h2><a _href="item-${id}" attr="href" html="${title}">Sample</a></h2>
+    <h2><a _href="#item-${id}" attr="href" html="${title}">Sample</a></h2>
     <img _src="${media:thumbnail.url}" _alt="${title}" attr="src alt"/>
     <p class="author">by <span html="${author.name}">author</span></p>
     <p class="published">published <span html="${published|date}">date</span></p>
@@ -10,9 +10,9 @@
       <li class="enclosure"><a class="btn" attr="href title" _href="${href}" _title="Download ${title} torrent (size: ${size|bytesToSize})">Download <span html="[${format.size|bytesToSize}]">[652 MB]</span></a></li>
       <li class="license"><a class="btn" attr="href title" _href="${href}" _title="Read ${title} license (${rights})">License</a></li>
     </ul>
-    <a _href="#details-${id}" attr="href" class="info"><em>info</em></a>
+    <a class="info"><em>info</em></a>
   </div>
-  <div class="back" attr="id" _id="details-${id}">
+  <div class="back">
     <dl class="synopsis">
       <dt>synopsis</dt>
       <dd html="${content.content|striptags}">synopsis</dd>
@@ -37,6 +37,6 @@
       <dt>width</dt>
       <dd html="${format.width}">n/a</dd>
     </dl>
-    <a _href="#details-${id}" attr="href" class="info"><em>info</em></a>
+    <a class="info"><em>info</em></a>
   </div>
 </li>

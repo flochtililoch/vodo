@@ -315,10 +315,6 @@ form {
   float: left;
 }
 
-.placeholder {
-  display: none;
-}
-
 .loading {
   display: none;
 }
