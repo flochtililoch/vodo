@@ -7,72 +7,72 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="">
+  <title>Vodo Media Feed</title>
+  <meta name="description" content="Formatted view of Vodo's Media RSS Feed">
   <meta name="viewport" content="width=device-width">
   <meta http-equiv="imagetoolbar" content="false">
   <link rel="stylesheet" href="css/h5bp.css">
   <link rel="stylesheet" href="css/style.css">
-  <!-- IE9 Specific -->
-  <meta name="application-name" content="Coverflow">
-  <meta name="msapplication-tooltip" content="A simple coverflow prototype that include keyboard and mousewheel navigation">
-  <meta name="msapplication-starturl" content="http://www.example.com/index.html?pinned=true">
-  <!-- Open Graph Data -->
-  <meta property="og:title" content="">
-  <meta property="og:description" content="">
-  <meta property="og:image" content="">
-  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+  <meta property="og:title" content="Vodo Media Feed">
+  <meta property="og:description" content="Formatted view of Vodo's Media RSS Feed">
+  <meta property="og:image" content="http://vodo.net/static/images/logo.png">
   <script src="js/modernizr.js"></script>
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-  <header>
-
-  </header>
-  <div role="main" id="wrapper">
-
-    <div id="coverflow">
-      <img src="img/gorillaz-plasticbeach.jpg">
-      <img src="img/kingsofleon-comearoundsunshine.jpg">
-      <img src="img/kidrock-bornfree.jpg">
-      <img src="img/recovery-recovery.jpg">
-      <img src="img/lilwayne-iamnotahumanbeing.jpg">
-      <img src="img/taylorswift-speaknow.jpg">
-      <img src="img/thebandperry-thebandperry.jpg">
-      <img src="img/maroon5-handsallover.jpg">
-      <img src="img/mychemicalromance-dangerdays.jpg">
-      <img src="img/ironmaiden-thefinalfrontier.jpg">
-      <img src="img/orderoftheblack-blacklabelsociety.jpg">
-      <img src="img/usher-raymondvraymond.jpg">
-    </div>
-    <div id="slider"></div>
-
+  <ul class="items clearfix">
+    <li attr="id" _id="item-${id}" class="item placeholder">
+      <div class="front">
+        <h2><a _href="#item-${id}" attr="href" html="${title}">Sample</a></h2>
+        <img _src="${media:thumbnail.url}" _alt="${title}" attr="src alt"/>
+        <p class="author">by <span html="${author.name}">author</span></p>
+        <p class="published">published <span html="${published|date}">date</span></p>
+        <p class="synopsis" html="${content.content|striptags}">synopsis</p>
+        <ul class="actions clearfix">
+          <li class="alternate"><a class="btn" attr="href title" _href="${href}" _title="Watch ${title} on Vodo.net site (duration: ${duration|secondsToMinutes})">Watch <span html="[${format.duration|secondsToMinutes}]">[102 min]</span></a></li>
+          <li class="enclosure"><a class="btn" attr="href title" _href="${href}" _title="Download ${title} torrent (size: ${size|bytesToSize})">Download <span html="[${format.size|bytesToSize}]">[652 MB]</span></a></li>
+          <li class="license"><a class="btn" attr="href title" _href="${href}" _title="Read ${title} license (${rights})">License</a></li>
+        </ul>
+        <a class="info"><em>info</em></a>
+      </div>
+      <div class="back">
+        <dl class="synopsis">
+          <dt>synopsis</dt>
+          <dd html="${content.content|striptags}">synopsis</dd>
+        </dl>
+        <dl class="metadata clearfix">
+          <dt>aspect ratio</dt>
+          <dd html="${format.pixel_aspect_ratio}">n/a</dd>
+          <dt>video bitrate</dt>
+          <dd html="${format.video_bitrate}">n/a</dd>
+          <dt>audio bitrate</dt>
+          <dd html="${format.audio_bitrate}">n/a</dd>
+          <dt>audio codec</dt>
+          <dd html="${format.audio_codec}">n/a</dd>
+          <dt>video codec</dt>
+          <dd html="${format.video_codec}">n/a</dd>            
+          <dt>framerate</dt>
+          <dd html="${format.framerate}">n/a</dd>
+          <dt>samplerate</dt>
+          <dd html="${format.samplerate}">n/a</dd>
+          <dt>height</dt>
+          <dd html="${format.height}">n/a</dd>
+          <dt>width</dt>
+          <dd html="${format.width}">n/a</dd>
+        </dl>
+        <a class="info"><em>info</em></a>
+      </div>
+    </li>
+  </ul>
+  <div class="loading">
+    <div class="overlay"></div>
+    <b><i></i><i></i><i></i></b>
   </div>
-  <footer>
-
-  </footer>
-  <!-- Required -->
   <script src="js/jquery.js"></script>
-  <script src="js/jquery.ui.widget.js"></script>
-	<script src="js/jquery.ui.coverflow.js"></script>
-	<!-- Following scripts are required only if slider / mousewheel support needed -->
-  <script src="js/jquery.ui.mouse.js"></script>
-  <script src="js/jquery.ui.slider.js"></script>
-  <script src="js/jquery.mousewheel.js"></script>
-  <script src="js/jquery.swipe.js"></script>
-	<script>
-	  $(document).ready(function(){
-      $('#coverflow').coverflow({
-        slider: $('#slider'),
-        item: 0,              // First item to display
-        offset: 4,            // Scroll by X items when page is loaded
-        matrixRatio: -0.05,   // Surrounding items' orientation
-        scaleRatio: 0.3,      // Depth difference between main item and surrounding ones
-        spacing: 150          // Space between items
-      });  
-  });
-	</script>
+  <script src="js/jquery.tpl.js"></script>
+	<script src="js/vodo.js"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>
