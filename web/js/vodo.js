@@ -28,38 +28,53 @@ var vodo = (function($, self){
   }
   
   self.loadFeed = function(o) {
-    $.getJSON(
-      o.url,
-      function(data) {
-        $.each(data.value.items, function(key, item){
-          
-          // Variables used to loop through items list
-          var index = 0,
-              itemsCount = item.entry.length;
+    
+    function processFeed(data) {
+      $.each(data.value.items, function(key, item){
 
-          // Do not freeze UI while processing list
-          var repeat = setInterval(function() {
-            
-            // Process and display item
-            o.container.append(
-              parseItem(
-                o.placeholder.clone(),
-                item.entry[index]
-                )
-              );
+        // Variables used to loop through items list
+        var index = 0,
+            itemsCount = item.entry.length;
 
-            // Make sure there are still items to process
-            index++;
-            if(index >= itemsCount) {
-              clearInterval(repeat);
-              if (typeof o.callback === 'function') {
-                o.callback();
-              }
+        // Do not freeze UI while processing list
+        var repeat = setInterval(function() {
+
+          // Process and display item
+          o.container.append(
+            parseItem(
+              o.placeholder.clone(),
+              item.entry[index]
+              )
+            );
+
+          // Make sure there are still items to process
+          index++;
+          if(index >= itemsCount) {
+            clearInterval(repeat);
+            if (typeof o.callback === 'function') {
+              o.callback();
             }
-          }, 150);
-        });
-      }
-    );
+          }
+        }, 150);
+      });
+    }
+    
+    if ($.browser.msie && window.XDomainRequest) {
+      var xdr = new XDomainRequest();
+      xdr.open("get", o.url);
+      xdr.onload = function()
+      {
+        processFeed($.parseJSON(xdr.responseText));
+      };
+      xdr.send();
+    } else {    
+      $.ajax({
+        url: o.url,
+        cache: false,
+        dataType: "json",
+        success: processFeed
+      });
+    }
   };
   
   // Hook into jQuery
